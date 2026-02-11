@@ -1,0 +1,19 @@
+[[repos]]
+repo = "local"
+
+# python engine
+[[repos.hooks]]
+id = "ruff-format"
+name = "ruff format"
+language = "system"
+types = ["python"]
+entry = "ruff format"
+exclude = { glob = "src/**" }
+
+[[repos.hooks]]
+id = "ruff-check"
+name = "ruff check"
+language = "system"
+entry = "ruff check --fix"
+types = ["python"]
+exclude = { glob = "src/**" }

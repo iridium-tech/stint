@@ -1,0 +1,28 @@
+id: route-component-suffix
+language: tsx
+severity: error
+message: Route components must have the "Route" suffix (e.g, HomeRoute = () => {})
+files:
+  - src/routes/**/*.tsx
+rule:
+  kind: lexical_declaration
+  has:
+    kind: variable_declarator
+    all:
+      - has:
+          kind: identifier
+          not:
+            regex: Route$
+      - has:
+          kind: arrow_function
+          has:
+            kind: statement_block
+            has:
+              kind: return_statement
+              any:
+                - has:
+                    kind: jsx_element
+                - has:
+                    kind: parenthesized_expression
+                    has:
+                      kind: jsx_element

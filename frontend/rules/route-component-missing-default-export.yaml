@@ -1,0 +1,34 @@
+id: route-component-missing-default-export
+language: tsx
+severity: error
+message: Route component must have matching default export
+files:
+  - src/routes/**/*.tsx
+rule:
+  kind: lexical_declaration
+  all:
+    - has:
+        kind: variable_declarator
+        all:
+          - has:
+              kind: identifier
+              regex: Route$
+          - has:
+              kind: arrow_function
+              has:
+                kind: statement_block
+                has:
+                  kind: return_statement
+                  any:
+                    - has:
+                        kind: jsx_element
+                    - has:
+                        kind: parenthesized_expression
+                        has:
+                          kind: jsx_element
+    - not:
+        precedes:
+          kind: export_statement
+          has:
+            kind: identifier
+            regex: Route$

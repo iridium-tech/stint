@@ -1,0 +1,25 @@
+[project]
+name = "engine"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "gen",
+    "asgi-cors>=1.0.1",
+    "connect-python>=0.7.1",
+    "patito>=0.8.5",
+    "polars>=1.37.1",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "uvicorn>=0.40.0",
+]
+
+[tool.uv.sources]
+gen = { path = "../gen", editable = true }
+
+[tool.pytest.ini_options]
+pythonpath = ["../gen"]
+
+[tool.ty.environment]
+root = ["./src", "../gen/"]

@@ -1,0 +1,17 @@
+id: route-component-arrow-function
+language: tsx
+severity: error
+message: Components must be arrow functions, not function declarations.
+rule:
+  kind: function_declaration
+  has:
+    kind: statement_block
+    has:
+      kind: return_statement
+      any:
+        - has:
+            kind: jsx_element
+        - has:
+            kind: parenthesized_expression
+            has:
+              kind: jsx_element

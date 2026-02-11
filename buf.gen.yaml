@@ -1,0 +1,16 @@
+version: v2
+inputs:
+  - directory: proto
+plugins:
+  - remote: buf.build/protocolbuffers/python
+    out: gen
+  - remote: buf.build/protocolbuffers/pyi
+    out: gen
+  - remote: buf.build/connectrpc/python
+    out: gen
+  - remote: buf.build/bufbuild/es:v2.5.1
+    out: gen
+    opt:
+      - target=ts
+      - import_extension=js
+    include_imports: true
