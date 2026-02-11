@@ -1,28 +1,51 @@
-from datetime import datetime
+import sys
+from pathlib import Path
 
-from asgi_cors import asgi_cors
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "gen"))
+
+import time
+from datetime import datetime
+from typing import TYPE_CHECKING
+
+import psutil
 from flight.v1.flight_connect import FlightService, FlightServiceASGIApplication
-from flight.v1.flight_pb2 import FlightEventRequest, FlightEventResponse
+from flight.v1.flight_pb2 import ProbeRequest, ProbeResponse
+from google.protobuf.timestamp_pb2 import Timestamp  # ty:ignore[unresolved-import]
+from starlette.middleware.cors import CORSMiddleware
+
+if TYPE_CHECKING:
+    from google.protobuf.internal.well_known_types import Timestamp
 
 
 class Flight(FlightService):
-    async def flight_event(self, request: FlightEventRequest, ctx):
-        print(request.message)
-        now = datetime.now()
-        response = FlightEventResponse(
-            acknowledgment="Python said: my final message, goodbye.", received_at=now
+    def _now(self) -> Timestamp:
+        ts = Timestamp()
+        ts.FromDatetime(datetime.now())
+        return ts
+
+    async def probe(self, request: ProbeRequest, ctx) -> ProbeResponse:
+        return ProbeResponse(
+            client_sent_at=request.client_sent_at,
+            server_processed_at=self._now(),
+            cpu_percent=psutil.cpu_percent(interval=None),
+            memory_percent=psutil.virtual_memory().percent,
+            uptime_seconds=int(time.time() - psutil.boot_time()),
         )
-        return response
 
 
-app = asgi_cors(
-    FlightServiceASGIApplication(Flight()),
-    hosts=["http://localhost:4000"],
-    methods=["GET", "POST"],
-    headers=[
+connect_app = FlightServiceASGIApplication(Flight())
+
+app = CORSMiddleware(
+    connect_app,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["POST"],
+    allow_headers=[
         "content-type",
         "connect-protocol-version",
         "connect-timeout-ms",
+        "connect-accept-encoding",
+        "connect-content-encoding",
         "x-user-agent",
     ],
+    allow_credentials=True,
 )

@@ -26,7 +26,7 @@ export const Footer = () => {
         <Brand size="md" />
 
         <div class="flex flex-col">
-          <p class="font-medium">Researching the future of perfomance.</p>
+          <p class="font-medium">Researching the future of performance.</p>
           <span>Copyright (c) 2026 Iridium. All Rights Reserved.</span>
         </div>
       </div>

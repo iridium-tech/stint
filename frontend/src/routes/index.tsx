@@ -1,4 +1,5 @@
 import { Brand } from "~/components/brand"
+import { FlightDiagnostics } from "~/components/flight"
 
 const NormalizeRoute = () => {
   return (
@@ -10,6 +11,8 @@ const NormalizeRoute = () => {
             Human-in-the-loop normalization, with speed. Like a <i>stint.</i>
           </span>
         </div>
+
+        <FlightDiagnostics />
       </div>
     </main>
   )

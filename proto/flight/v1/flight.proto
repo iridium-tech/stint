@@ -5,15 +5,17 @@ package flight.v1;
 import "google/protobuf/timestamp.proto";
 
 service FlightService {
-  rpc FlightEvent(FlightEventRequest) returns (FlightEventResponse);
+  rpc Probe(ProbeRequest) returns (ProbeResponse);
 }
 
-message FlightEventRequest {
-  string message = 1;
-  string level = 2;
+message ProbeRequest {
+  google.protobuf.Timestamp client_sent_at = 1;
 }
 
-message FlightEventResponse {
-  string acknowledgment = 1;
-  google.protobuf.Timestamp received_at = 2;
+message ProbeResponse {
+  google.protobuf.Timestamp client_sent_at = 1;
+  google.protobuf.Timestamp server_processed_at = 2;
+  float cpu_percent = 3;
+  float memory_percent = 4;
+  uint64 uptime_seconds = 5;
 }

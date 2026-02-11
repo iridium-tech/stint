@@ -3,13 +3,13 @@ inputs:
   - directory: proto
 plugins:
   - remote: buf.build/protocolbuffers/python
-    out: gen
+    out: engine/gen
   - remote: buf.build/protocolbuffers/pyi
-    out: gen
+    out: engine/gen
   - remote: buf.build/connectrpc/python
-    out: gen
+    out: engine/gen
   - remote: buf.build/bufbuild/es:v2.5.1
-    out: gen
+    out: frontend/src/gen
     opt:
       - target=ts
       - import_extension=js
