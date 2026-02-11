@@ -1,17 +1,13 @@
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "gen"))
-
 import time
 from datetime import datetime
 from typing import TYPE_CHECKING
 
 import psutil
-from flight.v1.flight_connect import FlightService, FlightServiceASGIApplication
-from flight.v1.flight_pb2 import ProbeRequest, ProbeResponse
 from google.protobuf.timestamp_pb2 import Timestamp  # ty:ignore[unresolved-import]
 from starlette.middleware.cors import CORSMiddleware
+
+from api.flight.v1.flight_connect import FlightService, FlightServiceASGIApplication
+from api.flight.v1.flight_pb2 import ProbeRequest, ProbeResponse
 
 if TYPE_CHECKING:
     from google.protobuf.internal.well_known_types import Timestamp

@@ -16,12 +16,6 @@ dependencies = [
     "starlette>=0.52.1",
 ]
 
-[tool.setuptools.package-dir]
-"" = "src"
-flight = "gen/flight"
-
-[tool.hatch.build.targets.wheel]
-packages = ["src", "gen/flight"]
-
-[tool.ty.environment]
-root = ["./src", "./gen/"]
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"

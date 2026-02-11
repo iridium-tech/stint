@@ -2,7 +2,7 @@ import { createClient } from "@connectrpc/connect"
 import { createConnectTransport } from "@connectrpc/connect-web"
 import { batch } from "solid-js"
 import { createStore } from "solid-js/store"
-import { FlightService } from "~/gen/flight/v1/flight_pb"
+import { FlightService } from "~/api/flight/v1/flight_pb"
 import { Button } from "./ui/button"
 
 const transport = createConnectTransport({ baseUrl: "http://localhost:8000" })

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package flight.v1;
+package api.flight.v1;
 
 import "google/protobuf/timestamp.proto";
 
