@@ -8,7 +8,7 @@ name = "ruff format"
 language = "system"
 types = ["python"]
 entry = "ruff format"
-exclude = { glob = "src/**" }
+exclude = { glob = "gen/**" }
 
 [[repos.hooks]]
 id = "ruff-check"
@@ -16,4 +16,4 @@ name = "ruff check"
 language = "system"
 entry = "ruff check --fix"
 types = ["python"]
-exclude = { glob = "src/**" }
+exclude = { glob = "gen/**" }
